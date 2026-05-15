@@ -1,0 +1,5 @@
+# ads.txt — Authorized Digital Sellers
+# Add your AdSense publisher ID here after approval
+# Format: google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+# Example (replace with your pub ID):
+# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
