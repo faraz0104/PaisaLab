@@ -15,11 +15,11 @@ export default function Footer() {
                 ₹
               </div>
               <span className="font-bold text-xl text-white">
-                Paisa<span className="text-brand">Lab</span>
+                Rupeescalc
               </span>
             </Link>
             <p className="text-sm leading-relaxed">
-              Free financial calculators built for India. Fast, accurate, mobile-friendly.
+              Free Indian finance calculators. Instant results, no signup, mobile-friendly.
             </p>
             <p className="text-xs mt-4 text-slate-500">
               © {new Date().getFullYear()} PaisaLab. All rights reserved.

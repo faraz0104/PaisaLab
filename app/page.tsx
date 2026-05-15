@@ -1,206 +1,199 @@
+"use client";
+
 import Link from "next/link";
-import { ALL_CALCULATORS, SITE_NAME_CONST } from "@/lib/seo";
-import { organizationSchema, JsonLd } from "@/lib/schemas";
+import { useState, useMemo } from "react";
+import { ALL_CALCULATORS } from "@/lib/seo";
 
-const categories = ["Investment", "Loans", "Tax", "Savings"] as const;
+const categories = ["All", "Investment", "Loans", "Tax", "Savings"] as const;
 
-const categoryDescriptions: Record<string, string> = {
-  Investment: "SIP, lumpsum, and systematic withdrawal planning",
-  Loans: "Home, car, and personal loan EMI with amortization",
-  Tax: "Income tax and GST calculations for FY 2025-26",
-  Savings: "Fixed and recurring deposit maturity calculations",
+const calcDescriptions: Record<string, string> = {
+  "sip-calculator": "Monthly mutual fund returns",
+  "lumpsum-calculator": "One-time investment growth",
+  "swp-calculator": "Monthly withdrawal planning",
+  "step-up-sip-calculator": "SIP with yearly increase",
+  "emi-calculator": "Any loan monthly payment",
+  "home-loan-emi-calculator": "Housing loan with prepayment",
+  "car-loan-emi-calculator": "Vehicle loan EMI",
+  "personal-loan-emi-calculator": "Unsecured loan cost",
+  "income-tax-calculator": "Old vs new regime FY 2025-26",
+  "gst-calculator": "Add or extract GST instantly",
+  "fd-calculator": "Fixed deposit maturity",
+  "rd-calculator": "Recurring deposit returns",
 };
 
+const popularSlugs = ["sip-calculator", "emi-calculator", "income-tax-calculator", "gst-calculator"];
+
 export default function HomePage() {
+  const [search, setSearch] = useState("");
+  const [activeCategory, setActiveCategory] = useState<string>("All");
+
+  const filtered = useMemo(() => {
+    return ALL_CALCULATORS.filter((c) => {
+      const matchesCategory = activeCategory === "All" || c.category === activeCategory;
+      const matchesSearch =
+        !search ||
+        c.label.toLowerCase().includes(search.toLowerCase()) ||
+        (calcDescriptions[c.slug] ?? "").toLowerCase().includes(search.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+  }, [search, activeCategory]);
+
+  const popular = ALL_CALCULATORS.filter((c) => popularSlugs.includes(c.slug));
+
   return (
-    <>
-      <JsonLd data={organizationSchema()} />
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
 
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(16,185,129,0.15),_transparent_60%)]" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 bg-brand/20 border border-brand/30 rounded-full px-3 py-1 text-sm text-brand mb-6">
-              <span className="w-2 h-2 rounded-full bg-brand animate-pulse" />
-              Free · No signup · Instant results
-            </div>
-            <h1 className="text-3xl sm:text-5xl font-bold leading-tight mb-4">
-              India&apos;s Smartest{" "}
-              <span className="text-brand">Finance Calculators</span>
-            </h1>
-            <p className="text-lg text-slate-300 mb-8 leading-relaxed">
-              SIP, EMI, Income Tax, GST, FD — 12 calculators that update as you type.
-              No button clicks, no ads above the fold, no clutter.
-              Built for India, optimized for mobile.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="/sip-calculator/"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-brand text-white font-semibold hover:bg-brand-dark transition-colors shadow-brand-glow"
-              >
-                📈 SIP Calculator
-              </Link>
-              <Link
-                href="/emi-calculator/"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-colors"
-              >
-                🏦 EMI Calculator
-              </Link>
-              <Link
-                href="/income-tax-calculator/"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/20 transition-colors"
-              >
-                📋 Tax Calculator
-              </Link>
-            </div>
+      {/* ── HERO ─────────────────────────────────────────────── */}
+      <section className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+        <div className="max-w-4xl mx-auto px-4 py-12 sm:py-16 text-center">
+          <div className="inline-flex items-center gap-2 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 rounded-full px-4 py-1.5 text-sm text-emerald-700 dark:text-emerald-400 font-medium mb-5">
+            🇮🇳 Free · Instant · No Signup
           </div>
-        </div>
+          <h1 className="text-3xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-4 leading-tight">
+            What do you want<br className="hidden sm:block" /> to calculate today?
+          </h1>
+          <p className="text-slate-500 dark:text-slate-400 text-lg mb-8">
+            12 Indian finance calculators — results update as you type
+          </p>
 
-        {/* Stats bar */}
-        <div className="border-t border-white/10 bg-white/5">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-            <div className="grid grid-cols-3 sm:grid-cols-3 gap-4 text-center">
-              {[
-                { label: "Calculators", value: "12" },
-                { label: "Monthly Searches", value: "2M+" },
-                { label: "Mobile Ready", value: "100%" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div className="text-xl sm:text-2xl font-bold text-brand">{stat.value}</div>
-                  <div className="text-xs text-slate-400">{stat.label}</div>
-                </div>
-              ))}
+          {/* Search */}
+          <div className="relative max-w-lg mx-auto">
+            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+              <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+              </svg>
             </div>
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => { setSearch(e.target.value); setActiveCategory("All"); }}
+              placeholder='Search — try "SIP", "EMI", "tax", "GST"...'
+              className="w-full pl-12 pr-4 py-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 text-base outline-none focus:ring-2 focus:ring-emerald-500 shadow-sm"
+            />
+            {search && (
+              <button
+                onClick={() => setSearch("")}
+                className="absolute inset-y-0 right-4 flex items-center text-slate-400 hover:text-slate-600"
+              >
+                ✕
+              </button>
+            )}
           </div>
         </div>
       </section>
 
-      {/* Calculator grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-2">
-            All Calculators
-          </h2>
-          <p className="text-slate-500 dark:text-slate-400">
-            Pick a calculator and get instant results — no signup required
-          </p>
-        </div>
+      <div className="max-w-6xl mx-auto px-4 py-10 space-y-10">
 
-        {categories.map((cat) => (
-          <div key={cat} className="mb-10">
-            <div className="flex items-baseline justify-between mb-4">
-              <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200">
-                {cat}
-              </h3>
-              <p className="text-sm text-slate-400 dark:text-slate-500 hidden sm:block">
-                {categoryDescriptions[cat]}
-              </p>
-            </div>
+        {/* ── POPULAR ──────────────────────────────────────────── */}
+        {!search && (
+          <section>
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">
+              ⚡ Most Used
+            </p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {ALL_CALCULATORS.filter((c) => c.category === cat).map((calc) => (
+              {popular.map((calc) => (
                 <Link
                   key={calc.slug}
                   href={`/${calc.slug}/`}
-                  className="group relative flex flex-col items-center gap-3 p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-brand dark:hover:border-brand hover:shadow-card-hover transition-all duration-200"
+                  className="group flex flex-col gap-3 p-5 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 hover:border-emerald-400 dark:hover:border-emerald-500 hover:shadow-lg transition-all duration-200"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-2xl group-hover:bg-brand/10 transition-colors">
+                  <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center text-2xl">
                     {calc.icon}
                   </div>
-                  <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 text-center leading-tight">
-                    {calc.label}
-                  </span>
-                  <span className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity text-brand text-xs">
-                    →
+                  <div>
+                    <p className="font-bold text-slate-800 dark:text-white text-sm leading-tight">{calc.label}</p>
+                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5 leading-snug">
+                      {calcDescriptions[calc.slug]}
+                    </p>
+                  </div>
+                  <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 group-hover:underline">
+                    Open →
                   </span>
                 </Link>
               ))}
             </div>
-          </div>
-        ))}
-      </section>
+          </section>
+        )}
 
-      {/* Why PaisaLab */}
-      <section className="bg-slate-50 dark:bg-slate-900/50 border-y border-slate-200 dark:border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white text-center mb-8">
-            Why {SITE_NAME_CONST}?
-          </h2>
-          <div className="grid sm:grid-cols-3 gap-6">
-            {[
-              {
-                icon: "⚡",
-                title: "Instant Results",
-                desc: "Results update as you type or drag the slider. No &ldquo;Calculate&rdquo; button. No page reload.",
-              },
-              {
-                icon: "📊",
-                title: "Beautiful Charts",
-                desc: "Animated area charts, donut charts, and year-by-year tables make your numbers visual and clear.",
-              },
-              {
-                icon: "💡",
-                title: "Smart Insights",
-                desc: "Plain-English insights after every calculation — like &ldquo;Increase EMI by ₹2K to save 2 years.&rdquo;",
-              },
-              {
-                icon: "📱",
-                title: "Mobile-First",
-                desc: "Designed for the 70%+ of Indian users on mobile. Large touch targets, responsive layouts.",
-              },
-              {
-                icon: "🔗",
-                title: "Shareable Links",
-                desc: "Share your calculation results via WhatsApp or a direct link that preserves all inputs.",
-              },
-              {
-                icon: "🇮🇳",
-                title: "Built for India",
-                desc: "Indian number format (lakh/crore), ₹ symbol, FY 2025-26 tax slabs, bank-wise FD rates.",
-              },
-            ].map((f) => (
-              <div
-                key={f.title}
-                className="flex gap-4 p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800"
+        {/* ── CATEGORY FILTER ──────────────────────────────────── */}
+        {!search && (
+          <div className="flex flex-wrap gap-2">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-4 py-2 rounded-full text-sm font-semibold border transition-all ${
+                  activeCategory === cat
+                    ? "bg-emerald-500 text-white border-emerald-500 shadow-sm"
+                    : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-emerald-400 hover:text-emerald-600"
+                }`}
               >
-                <div className="text-2xl shrink-0">{f.icon}</div>
-                <div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white mb-1">{f.title}</h3>
-                  <p
-                    className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: f.desc }}
-                  />
-                </div>
-              </div>
+                {cat}
+              </button>
             ))}
           </div>
-        </div>
-      </section>
+        )}
 
-      {/* Popular searches */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
-        <h2 className="text-base font-semibold text-slate-600 dark:text-slate-400 mb-4">
-          Popular Calculations
-        </h2>
-        <div className="flex flex-wrap gap-2">
-          {[
-            { href: "/sip-calculator/?amt=5000&rate=12&years=10", label: "SIP ₹5K/month × 10 yr @ 12%" },
-            { href: "/emi-calculator/?principal=3000000&rate=8.5&years=20", label: "Home Loan ₹30L × 20 yr @ 8.5%" },
-            { href: "/income-tax-calculator/?income=1200000", label: "Tax on ₹12L salary" },
-            { href: "/gst-calculator/?amount=10000&slab=18", label: "GST on ₹10,000 @ 18%" },
-            { href: "/fd-calculator/?principal=100000&rate=7&years=5", label: "FD ₹1L × 5 yr @ 7%" },
-            { href: "/sip-calculator/?amt=10000&rate=15&years=20", label: "SIP ₹10K/month × 20 yr @ 15%" },
-          ].map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700 text-sm text-slate-600 dark:text-slate-300 hover:border-brand hover:text-brand dark:hover:text-brand transition-colors bg-white dark:bg-slate-900"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-      </section>
-    </>
+        {/* ── ALL CALCULATORS GRID ─────────────────────────────── */}
+        <section>
+          {search && (
+            <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+              {filtered.length} result{filtered.length !== 1 ? "s" : ""} for &quot;{search}&quot;
+            </p>
+          )}
+
+          {filtered.length === 0 ? (
+            <div className="text-center py-16">
+              <p className="text-4xl mb-3">🔍</p>
+              <p className="text-slate-600 dark:text-slate-300 font-medium">No calculator found for &quot;{search}&quot;</p>
+              <button onClick={() => setSearch("")} className="mt-3 text-sm text-emerald-600 hover:underline">
+                Clear search
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filtered.map((calc) => (
+                <Link
+                  key={calc.slug}
+                  href={`/${calc.slug}/`}
+                  className="group flex items-center gap-4 p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-400 dark:hover:border-emerald-500 hover:shadow-md transition-all duration-150"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-2xl shrink-0 group-hover:bg-emerald-50 dark:group-hover:bg-emerald-900/30 transition-colors">
+                    {calc.icon}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-slate-800 dark:text-white text-sm leading-tight">{calc.label}</p>
+                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5 truncate">
+                      {calcDescriptions[calc.slug]}
+                    </p>
+                  </div>
+                  <svg className="w-4 h-4 text-slate-300 group-hover:text-emerald-500 transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              ))}
+            </div>
+          )}
+        </section>
+
+        {/* ── TRUST BAR ────────────────────────────────────────── */}
+        {!search && (
+          <section className="grid grid-cols-3 gap-4 border-t border-slate-200 dark:border-slate-800 pt-8">
+            {[
+              { icon: "⚡", title: "Instant Results", desc: "Updates as you type — no Calculate button" },
+              { icon: "📊", title: "Visual Charts", desc: "Animated charts & year-by-year breakdown" },
+              { icon: "🔗", title: "Shareable", desc: "Share results via WhatsApp or link" },
+            ].map((f) => (
+              <div key={f.title} className="text-center p-4">
+                <div className="text-2xl mb-2">{f.icon}</div>
+                <p className="font-semibold text-slate-800 dark:text-white text-sm">{f.title}</p>
+                <p className="text-xs text-slate-400 mt-1 leading-snug">{f.desc}</p>
+              </div>
+            ))}
+          </section>
+        )}
+
+      </div>
+    </div>
   );
 }
