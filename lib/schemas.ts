@@ -54,12 +54,31 @@ export function organizationSchema() {
     "@type": "Organization",
     name: SITE_NAME,
     url: SITE_URL,
-    logo: `${SITE_URL}/logo.png`,
+    logo: `${SITE_URL}/logo.svg`,
     sameAs: [],
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer service",
       availableLanguage: ["English", "Hindi"],
+    },
+  };
+}
+
+export function websiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE_NAME,
+    url: SITE_URL,
+    description:
+      "Free online finance calculators for India and worldwide — SIP, EMI, income tax, GST, FD, RD, compound interest, mortgage, currency converter, retirement planner, and more.",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE_URL}/?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
     },
   };
 }

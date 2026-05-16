@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { breadcrumbSchema } from "@/lib/schemas";
-import { JsonLd } from "@/lib/schemas";
+import { breadcrumbSchema, JsonLd } from "@/lib/schemas";
+import { SITE_URL_CONST } from "@/lib/seo";
 
 interface BreadcrumbItem {
   label: string;
@@ -13,10 +13,10 @@ interface BreadcrumbProps {
 
 export default function Breadcrumb({ items }: BreadcrumbProps) {
   const schemaItems = [
-    { name: "Home", url: "https://www.paisalab.in/" },
+    { name: "Home", url: `${SITE_URL_CONST}/` },
     ...items.map((item) => ({
       name: item.label,
-      url: item.href ? `https://www.paisalab.in${item.href}` : "",
+      url: item.href ? `${SITE_URL_CONST}${item.href}` : `${SITE_URL_CONST}/`,
     })),
   ];
 

@@ -9,7 +9,7 @@ import {
   SITE_DESCRIPTION_CONST,
   SITE_URL_CONST,
 } from "@/lib/seo";
-import { organizationSchema, JsonLd } from "@/lib/schemas";
+import { organizationSchema, websiteSchema, JsonLd } from "@/lib/schemas";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -96,6 +96,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased">
         <JsonLd data={organizationSchema()} />
+        <JsonLd data={websiteSchema()} />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
