@@ -82,19 +82,13 @@ function applySlabs(income: number, slabs: TaxSlab[]): { tax: number; breakdown:
   return { tax, breakdown };
 }
 
-function calcSurcharge(taxableIncome: number, baseTax: number): number {
+function calcSurcharge(taxableIncome: number, baseTax: number, isNewRegime = false): number {
   if (taxableIncome <= 5000000) return 0;
   if (taxableIncome <= 10000000) return baseTax * 0.10;
   if (taxableIncome <= 20000000) return baseTax * 0.15;
   if (taxableIncome <= 50000000) return baseTax * 0.25;
-  return baseTax * 0.37;
-}
-
-// Marginal relief so tax doesn't exceed income above threshold
-function applyRebate87A(taxableIncome: number, baseTax: number, regime: "old" | "new"): number {
-  const limit = regime === "new" ? 700000 : 500000;
-  if (taxableIncome <= limit) return 0;
-  return baseTax;
+  // New regime: surcharge capped at 25% (from FY 2023-24)
+  return baseTax * (isNewRegime ? 0.25 : 0.37);
 }
 
 function calcNewRegime(inputs: TaxInputs): RegimeTaxResult {
@@ -106,11 +100,16 @@ function calcNewRegime(inputs: TaxInputs): RegimeTaxResult {
 
   const { tax: baseTax, breakdown } = applySlabs(taxableIncome, NEW_SLABS);
 
-  // Section 87A rebate (income ≤ 12L → zero tax after marginal relief)
-  let effectiveTax = baseTax;
-  if (taxableIncome <= 1200000) effectiveTax = 0;
+  // 87A rebate: taxable income ≤ 12L → zero tax
+  // Marginal relief: tax cannot exceed (taxableIncome − 12L) for income just above 12L
+  let effectiveTax: number;
+  if (taxableIncome <= 1200000) {
+    effectiveTax = 0;
+  } else {
+    effectiveTax = Math.min(baseTax, taxableIncome - 1200000);
+  }
 
-  const surcharge = calcSurcharge(taxableIncome, effectiveTax);
+  const surcharge = calcSurcharge(taxableIncome, effectiveTax, true);
   const cess = (effectiveTax + surcharge) * 0.04;
   const totalTax = effectiveTax + surcharge + cess;
   const effectiveRate = grossIncome > 0 ? (totalTax / grossIncome) * 100 : 0;
@@ -168,9 +167,14 @@ function calcOldRegime(inputs: TaxInputs): RegimeTaxResult {
   const taxableIncome = Math.max(0, grossIncome - totalDeductions);
   const { tax: baseTax, breakdown } = applySlabs(taxableIncome, OLD_SLABS);
 
-  // 87A rebate for ≤ 5L
-  let effectiveTax = baseTax;
-  if (taxableIncome <= 500000) effectiveTax = 0;
+  // 87A rebate: taxable income ≤ 5L → zero tax
+  // Marginal relief: tax cannot exceed (taxableIncome − 5L) for income just above 5L
+  let effectiveTax: number;
+  if (taxableIncome <= 500000) {
+    effectiveTax = 0;
+  } else {
+    effectiveTax = Math.min(baseTax, taxableIncome - 500000);
+  }
 
   const surcharge = calcSurcharge(taxableIncome, effectiveTax);
   const cess = (effectiveTax + surcharge) * 0.04;
