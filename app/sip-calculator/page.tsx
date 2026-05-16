@@ -13,78 +13,76 @@ const meta = CALC_META[slug];
 const FAQS = [
   {
     question: "What is a SIP calculator?",
-    answer:
-      "A SIP (Systematic Investment Plan) calculator helps you estimate the future value of your mutual fund investments made at regular intervals. You enter the monthly investment amount, expected annual return rate, and investment duration to see how much your money will grow.",
+    answer: "A SIP (Systematic Investment Plan) calculator is a free online tool that estimates the future value of your mutual fund investments made at fixed monthly intervals. Enter your monthly SIP amount, expected annual return, and investment duration to instantly see maturity amount, estimated returns, and year-wise growth chart.",
   },
   {
-    question: "How accurate is the SIP calculator?",
-    answer:
-      "The SIP calculator uses the standard SIP maturity formula: M = P × {[(1+i)^n – 1] / i} × (1+i). It assumes a constant rate of return, which is a reasonable long-term estimate. Actual mutual fund returns vary year to year, so treat results as an estimate for planning purposes.",
+    question: "How to calculate SIP returns?",
+    answer: "SIP returns are calculated using the formula: M = P × {[(1+i)^n – 1] / i} × (1+i), where M = maturity amount, P = monthly SIP amount, i = monthly interest rate (annual rate ÷ 12 ÷ 100), n = number of months. For example, ₹5,000/month SIP for 10 years at 12% = ₹11.6 lakhs maturity on ₹6 lakhs invested.",
   },
   {
     question: "What is a good SIP return rate to assume?",
-    answer:
-      "Historically, large-cap equity mutual funds in India have delivered 12–14% annualized returns over 10+ year periods. Small/mid-cap funds average 15–18% over long periods but with higher volatility. For conservative planning, use 10–12% for equity SIPs. Debt funds typically yield 6–8%.",
+    answer: "For equity mutual funds in India: Large cap funds average 11–13% over 10+ years, Flexi cap funds 12–15%, Mid cap funds 14–18%, Index funds (Nifty 50) around 12%. For conservative planning, use 10–12% for equity SIPs and 6–8% for debt funds. Avoid assuming more than 15% as it may overestimate returns.",
   },
   {
     question: "How much SIP should I do per month?",
-    answer:
-      "A common rule of thumb is to invest 20% of your monthly take-home salary. If you earn ₹50,000/month, a ₹10,000 SIP is a reasonable starting point. Use this calculator to work backward — enter your financial goal (e.g. ₹1 crore in 20 years) and find the required monthly SIP.",
-  },
-  {
-    question: "What is the difference between SIP and lumpsum investment?",
-    answer:
-      "In a SIP, you invest a fixed amount every month, which averages out your purchase price over time (rupee cost averaging). A lumpsum is a one-time large investment. SIPs are ideal for salaried investors with regular income; lumpsum works better when you have a windfall or when markets are at a low.",
-  },
-  {
-    question: "Can I increase my SIP amount every year?",
-    answer:
-      "Yes! This is called a Step-Up SIP or Top-Up SIP. Many mutual funds allow you to automatically increase your SIP by a fixed amount or percentage each year. Increasing your SIP by 10% annually can significantly boost your final corpus — use our Step-Up SIP Calculator to see the difference.",
-  },
-  {
-    question: "Is SIP investment safe?",
-    answer:
-      "SIP is a method of investing, not an investment product itself. The safety depends on the underlying mutual fund. Equity mutual fund SIPs carry market risk but have historically rewarded patient long-term investors. Debt fund SIPs are more stable. Always match the fund type to your risk appetite and goal.",
+    answer: "A common rule is to invest 20% of your monthly take-home pay. For ₹50,000/month salary, ₹10,000 SIP is ideal. Use this calculator in reverse — enter your goal amount (e.g., ₹1 crore) and get the required monthly SIP. ₹5,000/month at 12% for 20 years grows to ~₹49.5 lakhs. ₹10,000/month grows to ~₹99 lakhs.",
   },
   {
     question: "What is the minimum SIP amount in India?",
-    answer:
-      "Most mutual funds in India allow SIPs starting from ₹100–₹500 per month. Prominent AMCs like HDFC, SBI, and Axis allow ₹100/month SIPs. Some funds for small investors like DSP Small Cap Fund start at ₹500/month.",
+    answer: "Most mutual funds allow SIPs starting from ₹100–₹500/month. Mirae Asset, Axis, HDFC, SBI Mutual Fund all offer ₹500 minimum SIPs. Some funds like Parag Parikh Flexi Cap allow ₹1,000/month minimum. There is no maximum limit on SIP amount.",
   },
   {
-    question: "How is SIP return calculated?",
-    answer:
-      "SIP return is calculated using the formula: M = P × {[(1+i)^n – 1] / i} × (1+i), where M is the maturity value, P is the monthly investment, i is the monthly interest rate (annual rate ÷ 12 ÷ 100), and n is the total number of months.",
+    question: "Is SIP better than FD?",
+    answer: "SIP in equity mutual funds has historically delivered 11–14% annual returns vs FD's 6.5–7.5%. Over 10+ years, SIP creates significantly more wealth. However, SIP carries market risk while FD is capital-guaranteed. For goals beyond 5 years, equity SIP is generally better. For short-term needs (under 3 years), FD is safer.",
   },
   {
-    question: "What is CAGR vs XIRR for SIP?",
-    answer:
-      "CAGR (Compound Annual Growth Rate) is used for lumpsum investments. For SIPs with multiple cash flows at different times, XIRR (Extended Internal Rate of Return) is the correct metric. XIRR accounts for the timing of each SIP installment, giving a more accurate picture of your true return.",
+    question: "What is the difference between SIP and lumpsum investment?",
+    answer: "SIP invests a fixed amount every month, averaging your purchase price over time (rupee cost averaging). Lumpsum is a one-time large investment. SIP is better for salaried investors who want to invest regularly. Lumpsum works when you have a windfall or markets have corrected significantly. Use our Lumpsum Calculator to compare both.",
+  },
+  {
+    question: "Can I increase my SIP amount every year?",
+    answer: "Yes — this is called Step-Up SIP or Top-Up SIP. You can increase your SIP by 5–10% each year, matching salary growth. A ₹5,000 SIP with 10% annual step-up for 20 years at 12% returns grows to ₹1.25 crore vs ₹49.5 lakhs with flat SIP — 2.5x more wealth. Use our Step-Up SIP Calculator to see the exact difference.",
+  },
+  {
+    question: "What is XIRR in SIP?",
+    answer: "XIRR (Extended Internal Rate of Return) is the accurate way to measure SIP returns since multiple cash flows happen at different times. Unlike CAGR (used for lumpsum), XIRR accounts for each monthly investment's timing. Most mutual fund platforms show XIRR. A 12% XIRR on a SIP is equivalent to 12% CAGR on a lumpsum.",
+  },
+  {
+    question: "Is SIP investment safe in India?",
+    answer: "SIP is a method of investing in SEBI-regulated mutual funds — not a product itself. Equity SIPs carry market risk but have never given negative returns over any 10-year period in India's history. Debt fund SIPs are more stable. All mutual funds in India are regulated by SEBI, making them legally safe. Invest only in AMFI-registered fund houses.",
+  },
+  {
+    question: "How many years should I do SIP?",
+    answer: "The longer the better due to compounding. ₹5,000/month SIP at 12%: 5 years = ₹4.1L, 10 years = ₹11.6L, 15 years = ₹25L, 20 years = ₹49.5L, 30 years = ₹1.76 Cr. The last 10 years contribute more than the first 20 years combined — this is the power of compounding. Minimum recommended SIP horizon is 5+ years.",
+  },
+  {
+    question: "What happens if I miss a SIP installment?",
+    answer: "Missing 1–2 SIP installments is usually fine. Most AMCs allow a 3-month grace period. If your bank account doesn't have sufficient balance, the SIP for that month is skipped (no penalty typically). Consistent SIP is ideal, but occasional misses don't ruin your corpus significantly. You can pause SIPs for 1–3 months with most fund houses.",
+  },
+  {
+    question: "What are the best mutual funds for SIP in India 2025?",
+    answer: "Top performing SIP funds 2025: Large cap — Mirae Asset Large Cap, Axis Bluechip. Flexi cap — Parag Parikh Flexi Cap, HDFC Flexi Cap. Mid cap — Motilal Oswal Midcap, Kotak Emerging Equity. Index — UTI Nifty 50, Nippon Nifty 500. Tax saving (ELSS) — DSP Tax Saver, Mirae Asset ELSS. Always check SEBI ratings and 5-year performance before investing.",
+  },
+  {
+    question: "How is SIP taxed in India?",
+    answer: "Equity SIP taxation: Units held > 1 year taxed at 10% LTCG (above ₹1.25 lakh annual gain). Units held < 1 year taxed at 15% STCG. Debt SIP: taxed at your income slab rate (as per Budget 2023). ELSS funds have 3-year lock-in but qualify for ₹1.5L 80C deduction. Each monthly SIP installment has its own 1-year holding period calculation.",
+  },
+  {
+    question: "Can NRI invest in SIP in India?",
+    answer: "Yes, NRIs can invest in Indian mutual funds through NRE/NRO accounts. NRIs from the USA and Canada face restrictions from some fund houses due to FATCA compliance but many AMCs like PPFAS and Mirae accept NRI investments. KYC with Indian passport and NRE/NRO account details are required. Repatriation of returns is allowed from NRE accounts.",
   },
 ];
 
 export default function SIPCalculatorPage() {
   return (
     <>
-      <JsonLd
-        data={webAppSchema(
-          slug,
-          "SIP Calculator",
-          meta.description
-        )}
-      />
+      <JsonLd data={webAppSchema(slug, "SIP Calculator", meta.description)} />
       <JsonLd data={faqSchema(FAQS)} />
-
       <CalculatorShell
         slug={slug}
         h1={meta.h1}
         faqs={FAQS}
-        relatedSlugs={[
-          "lumpsum-calculator",
-          "step-up-sip-calculator",
-          "swp-calculator",
-          "fd-calculator",
-        ]}
+        relatedSlugs={["lumpsum-calculator", "step-up-sip-calculator", "swp-calculator", "fd-calculator"]}
         content={<SIPContent />}
       >
         <Suspense fallback={<div className="h-64 animate-pulse bg-slate-100 dark:bg-slate-800 rounded-xl" />}>
@@ -100,79 +98,85 @@ function SIPContent() {
     <>
       <h2>What is a SIP Calculator?</h2>
       <p>
-        A <strong>SIP Calculator</strong> (Systematic Investment Plan Calculator) is a free online tool that helps you estimate the future value of your mutual fund investments made at regular monthly intervals. Whether you&apos;re planning for retirement, your child&apos;s education, or buying a home, a SIP calculator shows you exactly how much your disciplined monthly investing will grow to — with the magic of compounding working in your favor.
+        A <strong>SIP Calculator</strong> (Systematic Investment Plan Calculator) is a free online tool that helps you estimate the future value of your mutual fund investments made at regular monthly intervals. Whether you&apos;re planning for retirement, your child&apos;s education, buying a house, or building long-term wealth — a SIP return calculator shows you exactly how your disciplined monthly investing will grow over time with the power of compounding.
       </p>
       <p>
-        Unlike traditional savings accounts or fixed deposits, mutual fund SIPs can potentially deliver higher inflation-adjusted returns over the long term. The SIP calculator helps you set realistic goals and reverse-engineer how much you need to invest monthly to reach them.
+        The RupeesCalc SIP calculator gives you instant results as you move the slider — no button click needed. You get the total invested amount, estimated returns, maturity value, a live growth chart, donut chart showing principal vs returns, and a year-by-year breakdown table.
       </p>
 
       <h2>How to Use This SIP Calculator</h2>
       <ol>
-        <li>
-          <strong>Enter Monthly SIP Amount:</strong> The amount you plan to invest every month. You can start as low as ₹500.
-        </li>
-        <li>
-          <strong>Set Expected Annual Returns:</strong> The average annual return you expect from your mutual fund. For equity funds, 10–12% is a reasonable long-term assumption.
-        </li>
-        <li>
-          <strong>Choose Investment Period:</strong> How many years you plan to stay invested. The longer the period, the more compounding works in your favor.
-        </li>
-        <li>
-          <strong>Read the results:</strong> The calculator instantly shows your total invested amount, estimated returns, and final corpus. Switch between the growth chart and year-by-year table for a detailed breakdown.
-        </li>
+        <li><strong>Monthly SIP Amount:</strong> Enter how much you plan to invest every month. Start with as little as ₹500.</li>
+        <li><strong>Expected Annual Return (%):</strong> The average annual return you expect. Use 10–12% for equity funds, 6–8% for debt funds.</li>
+        <li><strong>Investment Period (Years):</strong> How long you plan to stay invested. Longer = more compounding = more wealth.</li>
+        <li><strong>Read Results Instantly:</strong> See invested amount, estimated returns, total maturity value, and live animated charts — no Calculate button needed.</li>
+        <li><strong>Share Your Plan:</strong> Use the WhatsApp share button to share your SIP plan with family or a financial advisor.</li>
       </ol>
-      <p>
-        Results update <em>instantly</em> as you move the sliders — no &quot;Calculate&quot; button needed. Use the share button to save your calculation or send it on WhatsApp.
-      </p>
 
       <h2>SIP Calculator Formula</h2>
-      <p>The SIP maturity amount is calculated using the following formula:</p>
-      <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-4 my-4 font-mono text-sm">
+      <p>The SIP maturity amount formula used in this calculator:</p>
+      <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-4 font-mono text-sm my-3">
         M = P × &#123;[(1 + i)^n – 1] / i&#125; × (1 + i)
       </div>
-      <p>Where:</p>
       <ul>
-        <li><strong>M</strong> = Maturity Amount (total value at the end)</li>
-        <li><strong>P</strong> = Monthly SIP investment (₹)</li>
+        <li><strong>M</strong> = Maturity Amount (total corpus at end)</li>
+        <li><strong>P</strong> = Monthly SIP amount (₹)</li>
         <li><strong>i</strong> = Monthly rate of return = Annual rate ÷ 12 ÷ 100</li>
-        <li><strong>n</strong> = Total number of months = Years × 12</li>
+        <li><strong>n</strong> = Total months = Years × 12</li>
       </ul>
-      <p>
-        <strong>Example:</strong> If you invest ₹5,000/month for 10 years at 12% annual return:
-        i = 12/12/100 = 0.01, n = 120 months.
-        M = 5000 × &#123;[(1.01)^120 – 1] / 0.01&#125; × 1.01 = <strong>₹11.6 Lakhs</strong> (against ₹6 Lakhs invested).
-      </p>
+      <p><strong>Example:</strong> ₹5,000/month × 10 years at 12% annual return: i = 0.01, n = 120. M = 5000 × [(1.01^120 – 1) / 0.01] × 1.01 = <strong>₹11,61,695</strong> (invested ₹6 lakhs, earned ₹5.6 lakhs in returns).</p>
+
+      <h2>SIP Returns — How Much Can You Earn?</h2>
+      <p>Here is a quick reference SIP returns table at 12% annual returns:</p>
+      <div className="overflow-x-auto my-3">
+        <table className="w-full text-sm border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
+          <thead className="bg-slate-50 dark:bg-slate-800">
+            <tr>
+              <th className="text-left px-4 py-2.5 font-semibold text-slate-600 dark:text-slate-300">Monthly SIP</th>
+              <th className="text-right px-4 py-2.5 font-semibold text-slate-600 dark:text-slate-300">10 Years</th>
+              <th className="text-right px-4 py-2.5 font-semibold text-slate-600 dark:text-slate-300">20 Years</th>
+              <th className="text-right px-4 py-2.5 font-semibold text-slate-600 dark:text-slate-300">30 Years</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+            {[
+              ["₹1,000", "₹2.3L", "₹9.9L", "₹35.3L"],
+              ["₹5,000", "₹11.6L", "₹49.5L", "₹1.76Cr"],
+              ["₹10,000", "₹23.2L", "₹98.9L", "₹3.53Cr"],
+              ["₹25,000", "₹58L", "₹2.47Cr", "₹8.82Cr"],
+              ["₹50,000", "₹1.16Cr", "₹4.94Cr", "₹17.6Cr"],
+            ].map(([sip, y10, y20, y30]) => (
+              <tr key={sip} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                <td className="px-4 py-2.5 font-medium text-slate-700 dark:text-slate-200">{sip}</td>
+                <td className="px-4 py-2.5 text-right text-slate-600 dark:text-slate-300">{y10}</td>
+                <td className="px-4 py-2.5 text-right text-slate-600 dark:text-slate-300">{y20}</td>
+                <td className="px-4 py-2.5 text-right text-brand font-semibold">{y30}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <h2>SIP vs Lumpsum — Which is Better?</h2>
       <p>
-        Both SIP and lumpsum are valid investment strategies, but they suit different situations:
+        <strong>SIP (Systematic Investment Plan)</strong> invests a fixed amount every month regardless of market conditions. This gives you rupee cost averaging — you buy more units when markets fall and fewer when they rise, automatically averaging your cost. SIP is ideal for salaried investors who receive regular income.
       </p>
-      <ul>
-        <li>
-          <strong>SIP is better when:</strong> You have a regular salary, you&apos;re unsure about market timing, or you want to invest ₹1,000–₹50,000/month. SIP benefits from rupee cost averaging — you buy more units when markets fall and fewer when they rise.
-        </li>
-        <li>
-          <strong>Lumpsum is better when:</strong> You have a large windfall (bonus, inheritance), markets have corrected significantly, or you have a short-term goal with a specific fund in mind.
-        </li>
-      </ul>
       <p>
-        For most salaried Indians, <strong>SIP is the recommended approach</strong> because it removes the temptation to time the market and builds discipline automatically.
+        <strong>Lumpsum</strong> works better when you have a large windfall and markets have corrected significantly. Over a full market cycle, both SIP and lumpsum deliver similar returns — the difference is risk management and discipline.
       </p>
+      <p><strong>Verdict:</strong> For most salaried Indians, SIP is the recommended approach because it removes the need to time the market and builds investing discipline automatically.</p>
 
-      <h2>Top Mutual Funds for SIP in India 2026</h2>
-      <p>
-        Here are some consistently well-performing categories for long-term SIP (always check current ratings and your risk profile before investing):
-      </p>
+      <h2>Top Mutual Funds for SIP in India 2025</h2>
       <ul>
-        <li><strong>Large Cap Funds:</strong> Mirae Asset Large Cap, Axis Bluechip — lower risk, steady 11–13% returns</li>
-        <li><strong>Flexi Cap Funds:</strong> Parag Parikh Flexi Cap, HDFC Flexi Cap — balanced risk, 13–15% returns</li>
-        <li><strong>Mid Cap Funds:</strong> Motilal Oswal Midcap, Kotak Emerging Equity — higher risk, 15–18% returns</li>
-        <li><strong>Index Funds:</strong> UTI Nifty 50, Nippon India Nifty 500 — lowest cost, market-matching returns</li>
-        <li><strong>ELSS Tax Saver Funds:</strong> DSP Tax Saver, Mirae Asset ELSS — Section 80C deduction up to ₹1.5L/year</li>
+        <li><strong>Large Cap:</strong> Mirae Asset Large Cap Fund, Axis Bluechip Fund, ICICI Pru Bluechip — lower risk, 11–13% returns</li>
+        <li><strong>Flexi Cap:</strong> Parag Parikh Flexi Cap, HDFC Flexi Cap — balanced risk, 12–15% returns</li>
+        <li><strong>Mid Cap:</strong> Motilal Oswal Midcap, Kotak Emerging Equity — higher risk, 14–18% returns</li>
+        <li><strong>Index Funds:</strong> UTI Nifty 50, Nippon India Nifty 500 — lowest cost (0.1–0.2% expense ratio)</li>
+        <li><strong>ELSS Tax Saver:</strong> DSP Tax Saver, Mirae Asset ELSS — 80C deduction up to ₹1.5L/year</li>
       </ul>
 
       <blockquote>
-        <strong>Disclaimer:</strong> Mutual fund investments are subject to market risks. Past performance does not guarantee future results. This calculator is for educational and planning purposes only. Please consult a SEBI-registered financial advisor before investing.
+        <strong>Disclaimer:</strong> Mutual fund investments are subject to market risks. Past performance does not guarantee future results. This SIP calculator is for educational and financial planning purposes only. Consult a SEBI-registered financial advisor before investing.
       </blockquote>
     </>
   );
