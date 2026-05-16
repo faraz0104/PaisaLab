@@ -11,6 +11,7 @@ const categoryMeta = {
   Loans:      { color: "blue",    hex: "#3b82f6", light: "bg-blue-50 dark:bg-blue-900/20",     text: "text-blue-600 dark:text-blue-400",     border: "border-l-blue-500",    badge: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400" },
   Tax:        { color: "violet",  hex: "#8b5cf6", light: "bg-violet-50 dark:bg-violet-900/20", text: "text-violet-600 dark:text-violet-400", border: "border-l-violet-500",  badge: "bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-400" },
   Savings:    { color: "amber",   hex: "#f59e0b", light: "bg-amber-50 dark:bg-amber-900/20",   text: "text-amber-600 dark:text-amber-400",   border: "border-l-amber-500",   badge: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400" },
+  Global:     { color: "teal",    hex: "#14b8a6", light: "bg-teal-50 dark:bg-teal-900/20",     text: "text-teal-600 dark:text-teal-400",     border: "border-l-teal-500",    badge: "bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-400" },
 } as const;
 
 const calcInfo: Record<string, { desc: string; example: string }> = {
@@ -26,15 +27,16 @@ const calcInfo: Record<string, { desc: string; example: string }> = {
   "gst-calculator":            { desc: "Add or remove GST for all slabs instantly",           example: "₹10,000 + 18% GST = ₹11,800" },
   "fd-calculator":             { desc: "Fixed deposit maturity with bank rate comparison",    example: "₹1 L at 7.25% for 3 yr = ₹1.24 L" },
   "rd-calculator":             { desc: "Recurring deposit maturity for any bank or post office", example: "₹5K/mo for 5 yr = ₹3.58 L" },
+  "compound-interest-calculator": { desc: "Calculate interest on any investment in 6 currencies", example: "$10K at 8% for 10 yrs = $22,196" },
 };
 
 const featured = ["sip-calculator", "emi-calculator", "income-tax-calculator", "fd-calculator"];
 
-const categories = ["All", "Investment", "Loans", "Tax", "Savings"] as const;
+const categories = ["All", "Investment", "Loans", "Tax", "Savings", "Global"] as const;
 type Category = typeof categories[number];
 
 const catIcons: Record<Category, string> = {
-  All: "🧮", Investment: "📈", Loans: "🏦", Tax: "📋", Savings: "🏛️",
+  All: "🧮", Investment: "📈", Loans: "🏦", Tax: "📋", Savings: "🏛️", Global: "🌍",
 };
 
 /* ─── page ────────────────────────────────────────────────── */
