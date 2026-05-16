@@ -37,23 +37,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.2,
     },
-    {
-      url: `${SITE_URL_CONST}/compound-interest-calculator/`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${SITE_URL_CONST}/mortgage-calculator/`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${SITE_URL_CONST}/retirement-calculator/`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
   ];
 }
