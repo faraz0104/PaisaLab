@@ -32,6 +32,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
     {
+      url: `${SITE_URL_CONST}/privacy-policy/`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.2,
+    },
+    {
       url: `${SITE_URL_CONST}/compound-interest-calculator/`,
       lastModified: now,
       changeFrequency: "monthly",
