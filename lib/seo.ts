@@ -285,6 +285,30 @@ export const CALC_META: Record<string, CalcMeta> = {
       "RD returns calculator",
     ],
   },
+  "compound-interest-calculator": {
+    slug: "compound-interest-calculator",
+    title: "Compound Interest Calculator — Free Online with Monthly Contributions",
+    h1: "Compound Interest Calculator — Free Online with Monthly Contributions",
+    description:
+      "Free compound interest calculator: Calculate final balance & interest earned on any investment. Supports daily, monthly, quarterly & annual compounding, monthly contributions, and 6 currencies (USD, EUR, GBP, INR, AUD, CAD). Instant results, no signup.",
+    keywords: [
+      "compound interest calculator",
+      "compound interest calculator online",
+      "compound interest calculator free",
+      "compound interest calculator with monthly contributions",
+      "daily compound interest calculator",
+      "monthly compound interest calculator",
+      "compound interest formula calculator",
+      "compound interest calculator 2025",
+      "how to calculate compound interest",
+      "compound interest vs simple interest",
+      "investment compound interest calculator",
+      "savings compound interest calculator",
+      "compound interest calculator USD",
+      "compound interest calculator UK",
+      "compound annual growth rate calculator",
+    ],
+  },
 };
 
 export function buildMetadata(slug: string): Metadata {
@@ -329,6 +353,7 @@ export const ALL_CALCULATORS = [
   { slug: "gst-calculator", label: "GST Calculator", category: "Tax", icon: "🧾" },
   { slug: "fd-calculator", label: "FD Calculator", category: "Savings", icon: "🏛️" },
   { slug: "rd-calculator", label: "RD Calculator", category: "Savings", icon: "💳" },
+  { slug: "compound-interest-calculator", label: "Compound Interest", category: "Global", icon: "🌍" },
 ] as const;
 
 export type CalcSlug = (typeof ALL_CALCULATORS)[number]["slug"];
