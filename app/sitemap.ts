@@ -26,10 +26,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.4,
     },
     {
-      url: `${SITE_URL_CONST}/blog/`,
+      url: `${SITE_URL_CONST}/contact/`,
       lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.7,
+      changeFrequency: "monthly",
+      priority: 0.3,
     },
   ];
 }
