@@ -309,6 +309,54 @@ export const CALC_META: Record<string, CalcMeta> = {
       "compound annual growth rate calculator",
     ],
   },
+  "mortgage-calculator": {
+    slug: "mortgage-calculator",
+    title: "Mortgage Calculator — Free Online Monthly Payment Calculator",
+    h1: "Mortgage Calculator — Free Online Monthly Payment Calculator",
+    description:
+      "Free mortgage calculator: Calculate monthly payment, total interest, and full amortization schedule for any home loan. Supports USD, EUR, GBP, INR, AUD, CAD. Adjust home price, down payment, rate, and term — instant results, no signup.",
+    keywords: [
+      "mortgage calculator",
+      "mortgage calculator online",
+      "mortgage payment calculator",
+      "home loan calculator",
+      "monthly mortgage payment calculator",
+      "mortgage amortization calculator",
+      "mortgage calculator free",
+      "mortgage calculator 2025",
+      "how much mortgage can I afford",
+      "mortgage interest calculator",
+      "house payment calculator",
+      "mortgage calculator with down payment",
+      "30 year mortgage calculator",
+      "15 year mortgage calculator",
+      "mortgage affordability calculator",
+    ],
+  },
+  "retirement-calculator": {
+    slug: "retirement-calculator",
+    title: "Retirement Calculator — Free Online Retirement Savings Planner",
+    h1: "Retirement Calculator — Free Online Retirement Savings Planner",
+    description:
+      "Free retirement calculator: Find out if you're on track for retirement. Enter your age, savings, monthly contributions, and expected return — see your projected corpus, whether it's sufficient, and estimated monthly income using the 4% rule. Multi-currency support.",
+    keywords: [
+      "retirement calculator",
+      "retirement savings calculator",
+      "retirement planning calculator",
+      "retirement calculator online free",
+      "how much to save for retirement",
+      "retirement corpus calculator",
+      "401k retirement calculator",
+      "retirement income calculator",
+      "am I saving enough for retirement",
+      "retirement fund calculator",
+      "retirement calculator 2025",
+      "fire calculator",
+      "early retirement calculator",
+      "pension calculator",
+      "retirement withdrawal calculator",
+    ],
+  },
 };
 
 export function buildMetadata(slug: string): Metadata {
@@ -354,6 +402,8 @@ export const ALL_CALCULATORS = [
   { slug: "fd-calculator", label: "FD Calculator", category: "Savings", icon: "🏛️" },
   { slug: "rd-calculator", label: "RD Calculator", category: "Savings", icon: "💳" },
   { slug: "compound-interest-calculator", label: "Compound Interest", category: "Global", icon: "🌍" },
+  { slug: "mortgage-calculator", label: "Mortgage Calculator", category: "Global", icon: "🏠" },
+  { slug: "retirement-calculator", label: "Retirement Calculator", category: "Global", icon: "👴" },
 ] as const;
 
 export type CalcSlug = (typeof ALL_CALCULATORS)[number]["slug"];

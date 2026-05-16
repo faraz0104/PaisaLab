@@ -28,6 +28,8 @@ const calcInfo: Record<string, { desc: string; example: string }> = {
   "fd-calculator":             { desc: "Fixed deposit maturity with bank rate comparison",    example: "₹1 L at 7.25% for 3 yr = ₹1.24 L" },
   "rd-calculator":             { desc: "Recurring deposit maturity for any bank or post office", example: "₹5K/mo for 5 yr = ₹3.58 L" },
   "compound-interest-calculator": { desc: "Calculate interest on any investment in 6 currencies", example: "$10K at 8% for 10 yrs = $22,196" },
+  "mortgage-calculator":          { desc: "Monthly home loan payment with full amortization",    example: "$300K at 7% for 30 yrs = $1,996/mo" },
+  "retirement-calculator":        { desc: "Are you on track to retire? 4% rule corpus check",    example: "$5K/mo expenses → need $1.5M corpus" },
 };
 
 const featured = ["sip-calculator", "emi-calculator", "income-tax-calculator", "fd-calculator"];
