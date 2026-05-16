@@ -72,10 +72,10 @@ const goals = [
 ] as const;
 
 const goalColorMap = {
-  emerald: { tab: "bg-emerald-500 text-white", border: "border-emerald-400", icon: "bg-emerald-50 dark:bg-emerald-900/30" },
-  blue: { tab: "bg-blue-500 text-white", border: "border-blue-400", icon: "bg-blue-50 dark:bg-blue-900/30" },
-  violet: { tab: "bg-violet-500 text-white", border: "border-violet-400", icon: "bg-violet-50 dark:bg-violet-900/30" },
-  amber: { tab: "bg-amber-500 text-white", border: "border-amber-400", icon: "bg-amber-50 dark:bg-amber-900/30" },
+  emerald: { tab: "bg-emerald-500 text-white", hoverBorder: "hover:border-emerald-400", icon: "bg-emerald-50 dark:bg-emerald-900/30" },
+  blue:    { tab: "bg-blue-500 text-white",    hoverBorder: "hover:border-blue-400",    icon: "bg-blue-50 dark:bg-blue-900/30" },
+  violet:  { tab: "bg-violet-500 text-white",  hoverBorder: "hover:border-violet-400",  icon: "bg-violet-50 dark:bg-violet-900/30" },
+  amber:   { tab: "bg-amber-500 text-white",   hoverBorder: "hover:border-amber-400",   icon: "bg-amber-50 dark:bg-amber-900/30" },
 };
 
 function fmtCompact(n: number) {
@@ -372,7 +372,7 @@ export default function HomePage() {
                   <Link
                     key={calc.slug}
                     href={`/${calc.slug}/`}
-                    className={`group flex flex-col gap-4 p-5 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 hover:${colors.border} hover:shadow-lg transition-all duration-200`}
+                    className={`group flex flex-col gap-4 p-5 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 ${colors.hoverBorder} hover:shadow-lg transition-all duration-200`}
                   >
                     <div className={`w-12 h-12 rounded-xl ${colors.icon} flex items-center justify-center text-2xl`}>
                       {calc.icon}
