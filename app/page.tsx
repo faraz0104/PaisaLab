@@ -34,6 +34,9 @@ const calcInfo: Record<string, { desc: string; example: string }> = {
   "percentage-calculator":        { desc: "5 percentage modes: basic, change, reverse & more",   example: "15% of 200 = 30 · 80→100 = +25%" },
   "ppf-calculator":               { desc: "PPF maturity, interest & tax saving at 7.1% rate",    example: "₹1.5L/yr × 15 yrs = ₹40.7L tax-free" },
   "salary-calculator":            { desc: "CTC to in-hand salary with PF, PT and income tax",   example: "₹12L CTC → ₹89,400/mo in-hand" },
+  "gratuity-calculator":          { desc: "Gratuity amount as per Payment of Gratuity Act 1972",  example: "₹50K basic × 10 yrs = ₹2.88L" },
+  "nps-calculator":               { desc: "NPS corpus, monthly pension & tax savings calculator",  example: "₹5K/mo × 30 yrs = ₹1.1Cr corpus" },
+  "hra-calculator":               { desc: "HRA tax exemption using three-limit formula",           example: "Basic ₹40K, Rent ₹18K → ₹1.68L exempt" },
 };
 
 const featured = ["sip-calculator", "emi-calculator", "income-tax-calculator", "fd-calculator"];
@@ -87,7 +90,7 @@ export default function HomePage() {
             <span className="text-emerald-500">to calculate</span> today?
           </h1>
           <p className="text-slate-500 dark:text-slate-400 text-base sm:text-lg mb-8 max-w-xl mx-auto">
-            19 free finance calculators — SIP, EMI, tax, GST, PPF, salary, mortgage, currency and more. Results update as you type.
+            22 free finance calculators — SIP, EMI, tax, GST, PPF, NPS, HRA, gratuity, salary and more. Results update as you type.
           </p>
 
           {/* Search */}
