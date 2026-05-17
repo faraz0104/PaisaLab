@@ -406,6 +406,8 @@ export const ALL_CALCULATORS = [
   { slug: "retirement-calculator", label: "Retirement Calculator", category: "Global", icon: "👴" },
   { slug: "currency-converter", label: "Currency Converter", category: "Global", icon: "💱" },
   { slug: "percentage-calculator", label: "Percentage Calculator", category: "Global", icon: "%" },
+  { slug: "ppf-calculator", label: "PPF Calculator", category: "Savings", icon: "🏦" },
+  { slug: "salary-calculator", label: "Salary Calculator", category: "Tax", icon: "💼" },
 ] as const;
 
 export type CalcSlug = (typeof ALL_CALCULATORS)[number]["slug"];

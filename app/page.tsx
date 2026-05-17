@@ -32,6 +32,8 @@ const calcInfo: Record<string, { desc: string; example: string }> = {
   "retirement-calculator":        { desc: "Are you on track to retire? 4% rule corpus check",    example: "$5K/mo expenses → need $1.5M corpus" },
   "currency-converter":           { desc: "Live exchange rates for 30 currencies worldwide",     example: "1 USD = ₹84.0 · 1 EUR = £0.86" },
   "percentage-calculator":        { desc: "5 percentage modes: basic, change, reverse & more",   example: "15% of 200 = 30 · 80→100 = +25%" },
+  "ppf-calculator":               { desc: "PPF maturity, interest & tax saving at 7.1% rate",    example: "₹1.5L/yr × 15 yrs = ₹40.7L tax-free" },
+  "salary-calculator":            { desc: "CTC to in-hand salary with PF, PT and income tax",   example: "₹12L CTC → ₹89,400/mo in-hand" },
 };
 
 const featured = ["sip-calculator", "emi-calculator", "income-tax-calculator", "fd-calculator"];
@@ -85,7 +87,7 @@ export default function HomePage() {
             <span className="text-emerald-500">to calculate</span> today?
           </h1>
           <p className="text-slate-500 dark:text-slate-400 text-base sm:text-lg mb-8 max-w-xl mx-auto">
-            17 free finance calculators — SIP, EMI, tax, GST, mortgage, currency converter, percentage and more. Results update as you type.
+            19 free finance calculators — SIP, EMI, tax, GST, PPF, salary, mortgage, currency and more. Results update as you type.
           </p>
 
           {/* Search */}
