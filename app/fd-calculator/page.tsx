@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { buildMetadata, CALC_META } from "@/lib/seo";
-import { webAppSchema, faqSchema, JsonLd } from "@/lib/schemas";
+import { webAppSchema, faqSchema, howToSchema, JsonLd } from "@/lib/schemas";
 import CalculatorShell from "@/components/calculator/CalculatorShell";
 import FDCalculator from "@/components/fd/FDCalculator";
 
@@ -73,17 +73,28 @@ const FAQS = [
   },
 ];
 
+const HOW_TO_STEPS = [
+  { name: "Enter principal amount", text: "Enter the amount you want to invest in a fixed deposit — from ₹1,000 to ₹1 crore." },
+  { name: "Set annual interest rate", text: "Enter the FD rate offered by your bank. SBI currently offers 6.5–7.25%, HDFC 7.0–7.4%, small finance banks up to 9%." },
+  { name: "Select tenure", text: "Choose the FD duration. Rates vary by tenure — typically higher for 1–3 year FDs than very short or very long durations." },
+  { name: "Choose compounding frequency", text: "Select quarterly (most common), monthly, half-yearly, or annual compounding. More frequent compounding = slightly higher effective yield." },
+  { name: "View maturity amount and interest", text: "The result shows total interest earned, maturity amount, and effective annual yield — compare this against SIP returns to decide where to invest." },
+];
+
 export default function FDPage() {
   return (
     <>
       <JsonLd data={webAppSchema(slug, "FD Calculator", meta.description)} />
       <JsonLd data={faqSchema(FAQS)} />
+      <JsonLd data={howToSchema("FD Calculator", "How to calculate fixed deposit maturity amount using RupeesCalc", HOW_TO_STEPS)} />
       <CalculatorShell
         slug={slug}
         h1={meta.h1}
         faqs={FAQS}
         relatedSlugs={["rd-calculator", "sip-calculator", "income-tax-calculator", "swp-calculator"]}
         content={<FDContent />}
+        howToSteps={HOW_TO_STEPS}
+        lastUpdated="May 2025"
       >
         <Suspense fallback={<div className="h-64 animate-pulse bg-slate-100 dark:bg-slate-800 rounded-xl" />}>
           <FDCalculator mode="fd" />

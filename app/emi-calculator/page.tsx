@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { buildMetadata, CALC_META } from "@/lib/seo";
-import { webAppSchema, faqSchema, JsonLd } from "@/lib/schemas";
+import { webAppSchema, faqSchema, howToSchema, JsonLd } from "@/lib/schemas";
 import CalculatorShell from "@/components/calculator/CalculatorShell";
 import EMICalculator from "@/components/emi/EMICalculator";
 
@@ -73,17 +73,28 @@ const FAQS = [
   },
 ];
 
+const HOW_TO_STEPS = [
+  { name: "Enter loan amount", text: "Enter the total loan amount you want to borrow — from ₹10,000 to ₹1 crore. Use the preset buttons for common amounts." },
+  { name: "Set annual interest rate", text: "Enter the interest rate offered by your bank. Home loans are typically 8.5–9.5%, personal loans 10–18%." },
+  { name: "Choose loan tenure", text: "Select the repayment period in months or years. Longer tenure = lower EMI but higher total interest." },
+  { name: "View EMI and total interest", text: "The calculator shows your monthly EMI, total interest paid over the full tenure, and the principal-to-interest ratio." },
+  { name: "Check amortization table", text: "Expand the year-wise amortization table to see the exact principal and interest breakdown for every year." },
+];
+
 export default function EMIPage() {
   return (
     <>
       <JsonLd data={webAppSchema(slug, "EMI Calculator", meta.description)} />
       <JsonLd data={faqSchema(FAQS)} />
+      <JsonLd data={howToSchema("EMI Calculator", "How to calculate loan EMI using RupeesCalc free EMI calculator", HOW_TO_STEPS)} />
       <CalculatorShell
         slug={slug}
         h1={meta.h1}
         faqs={FAQS}
         relatedSlugs={["home-loan-emi-calculator", "car-loan-emi-calculator", "personal-loan-emi-calculator", "sip-calculator"]}
         content={<EMIContent />}
+        howToSteps={HOW_TO_STEPS}
+        lastUpdated="May 2025"
       >
         <Suspense fallback={<div className="h-64 animate-pulse bg-slate-100 dark:bg-slate-800 rounded-xl" />}>
           <EMICalculator loanType="general" />

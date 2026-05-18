@@ -14,24 +14,27 @@ import { formatINR, formatINRCompact } from "@/lib/calculators/format";
 
 interface SIPCalculatorProps {
   mode?: "standard" | "stepup";
+  initialAmount?: number;
+  initialRate?: number;
+  initialYears?: number;
 }
 
 const DEFAULTS = { amount: 5000, rate: 12, years: 10, stepUp: 10 };
 
-export default function SIPCalculator({ mode = "standard" }: SIPCalculatorProps) {
+export default function SIPCalculator({ mode = "standard", initialAmount, initialRate, initialYears }: SIPCalculatorProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Initialise from URL params
+  // Initialise from props first, then URL params, then defaults
   const [amount, setAmount] = useState(() =>
-    Number(searchParams.get("amt")) || DEFAULTS.amount
+    (initialAmount ?? Number(searchParams.get("amt"))) || DEFAULTS.amount
   );
   const [rate, setRate] = useState(() =>
-    Number(searchParams.get("rate")) || DEFAULTS.rate
+    (initialRate ?? Number(searchParams.get("rate"))) || DEFAULTS.rate
   );
   const [years, setYears] = useState(() =>
-    Number(searchParams.get("years")) || DEFAULTS.years
+    (initialYears ?? Number(searchParams.get("years"))) || DEFAULTS.years
   );
   const [stepUp, setStepUp] = useState(() =>
     Number(searchParams.get("stepup")) || DEFAULTS.stepUp

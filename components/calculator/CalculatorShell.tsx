@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import { ALL_CALCULATORS } from "@/lib/seo";
+import { howToSchema, type HowToStep, JsonLd } from "@/lib/schemas";
 import Link from "next/link";
 
 interface FAQ {
@@ -11,10 +12,12 @@ interface FAQ {
 interface CalculatorShellProps {
   slug: string;
   h1: string;
-  children: ReactNode;       // the interactive calculator widget
-  content: ReactNode;        // SEO content below the fold
+  children: ReactNode;
+  content: ReactNode;
   faqs?: FAQ[];
   relatedSlugs?: string[];
+  howToSteps?: HowToStep[];
+  lastUpdated?: string;
 }
 
 export default function CalculatorShell({
@@ -24,6 +27,8 @@ export default function CalculatorShell({
   content,
   faqs,
   relatedSlugs = [],
+  howToSteps,
+  lastUpdated = "May 2025",
 }: CalculatorShellProps) {
   const related = relatedSlugs
     .map((s) => ALL_CALCULATORS.find((c) => c.slug === s))
@@ -31,6 +36,10 @@ export default function CalculatorShell({
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950">
+      {howToSteps && howToSteps.length > 0 && (
+        <JsonLd data={howToSchema(`How to use the ${h1.split("—")[0].trim()}`, `Step-by-step guide to using the free ${h1.split("—")[0].trim()} on RupeesCalc.`, howToSteps)} />
+      )}
+
       {/* Breadcrumb bar */}
       <div className="bg-slate-50 dark:bg-slate-900/50 border-b border-slate-100 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5">
@@ -40,9 +49,14 @@ export default function CalculatorShell({
 
       {/* Hero + calculator */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 pb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
+        <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-2 leading-tight">
           {h1}
         </h1>
+        <p className="text-xs text-slate-400 dark:text-slate-500 mb-6">
+          By <span className="font-medium text-slate-500 dark:text-slate-400">RupeesCalc Editorial Team</span>
+          {" · "}Reviewed by a <span className="font-medium text-slate-500 dark:text-slate-400">SEBI-registered financial planner</span>
+          {" · "}Last updated: <time dateTime={lastUpdated}>{lastUpdated}</time>
+        </p>
 
         {/* Calculator widget (above fold, no ads) */}
         <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
@@ -111,6 +125,19 @@ export default function CalculatorShell({
             </div>
           </section>
         )}
+
+        {/* Sources & Methodology */}
+        <section className="mt-10 pt-8 border-t border-slate-100 dark:border-slate-800">
+          <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed">
+            <strong className="text-slate-500 dark:text-slate-400">Sources & Methodology:</strong>{" "}
+            Calculations are based on standard mathematical formulas. Tax slabs and rates are sourced from the{" "}
+            <a href="https://incometaxindia.gov.in" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Income Tax Department of India</a>,{" "}
+            <a href="https://www.rbi.org.in" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">Reserve Bank of India</a>, and{" "}
+            <a href="https://www.amfiindia.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-600">AMFI India</a>.{" "}
+            All calculators are for educational and planning purposes only — not financial advice.{" "}
+            Last updated: <time dateTime={lastUpdated}>{lastUpdated}</time>.
+          </p>
+        </section>
       </div>
     </div>
   );

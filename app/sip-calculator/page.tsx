@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { buildMetadata, CALC_META } from "@/lib/seo";
-import { webAppSchema, faqSchema, JsonLd } from "@/lib/schemas";
+import { webAppSchema, faqSchema, howToSchema, JsonLd } from "@/lib/schemas";
 import CalculatorShell from "@/components/calculator/CalculatorShell";
 import SIPCalculator from "@/components/sip/SIPCalculator";
 
@@ -73,17 +73,28 @@ const FAQS = [
   },
 ];
 
+const HOW_TO_STEPS = [
+  { name: "Enter monthly SIP amount", text: "Type or adjust the slider for how much you want to invest every month — from ₹500 to ₹1,00,000." },
+  { name: "Set expected annual return", text: "Enter the expected annual return percentage. Historical equity mutual fund average is 12%. Debt funds typically return 7-8%." },
+  { name: "Choose investment duration", text: "Select how many years you plan to continue the SIP — 5, 10, 15, 20, or 25 years." },
+  { name: "View maturity amount and returns", text: "The calculator instantly shows your total invested amount, estimated returns, and final maturity value. The chart shows year-by-year growth." },
+  { name: "Compare with step-up SIP", text: "Click 'Step-Up SIP' to see how increasing your SIP by 10% each year significantly boosts your final corpus." },
+];
+
 export default function SIPCalculatorPage() {
   return (
     <>
       <JsonLd data={webAppSchema(slug, "SIP Calculator", meta.description)} />
       <JsonLd data={faqSchema(FAQS)} />
+      <JsonLd data={howToSchema("SIP Calculator", "How to calculate SIP returns using RupeesCalc free SIP calculator", HOW_TO_STEPS)} />
       <CalculatorShell
         slug={slug}
         h1={meta.h1}
         faqs={FAQS}
         relatedSlugs={["lumpsum-calculator", "step-up-sip-calculator", "swp-calculator", "fd-calculator"]}
         content={<SIPContent />}
+        howToSteps={HOW_TO_STEPS}
+        lastUpdated="May 2025"
       >
         <Suspense fallback={<div className="h-64 animate-pulse bg-slate-100 dark:bg-slate-800 rounded-xl" />}>
           <SIPCalculator mode="standard" />

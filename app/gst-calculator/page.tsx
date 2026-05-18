@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { buildMetadata, CALC_META } from "@/lib/seo";
-import { webAppSchema, faqSchema, JsonLd } from "@/lib/schemas";
+import { webAppSchema, faqSchema, howToSchema, JsonLd } from "@/lib/schemas";
 import CalculatorShell from "@/components/calculator/CalculatorShell";
 import GSTCalculator from "@/components/gst/GSTCalculator";
 
@@ -72,17 +72,27 @@ const FAQS = [
   },
 ];
 
+const HOW_TO_STEPS = [
+  { name: "Choose Add GST or Remove GST", text: "Select 'Add GST' if you have a base amount (before tax) and want to find the final price. Select 'Remove GST' if you have a GST-inclusive price and want to extract the base amount." },
+  { name: "Enter the amount", text: "Type the amount in rupees. For Add GST: enter the pre-tax price. For Remove GST (reverse): enter the price including GST." },
+  { name: "Select GST slab", text: "Choose the applicable GST rate: 5% (food, essential goods), 12% (processed food, computers), 18% (most services, electronics), or 28% (luxury items, cars)." },
+  { name: "View CGST, SGST, IGST split", text: "The result shows total GST amount, the CGST+SGST split (intra-state) and IGST (inter-state) for accurate billing and invoicing." },
+];
+
 export default function GSTPage() {
   return (
     <>
       <JsonLd data={webAppSchema(slug, "GST Calculator", meta.description)} />
       <JsonLd data={faqSchema(FAQS)} />
+      <JsonLd data={howToSchema("GST Calculator", "How to calculate GST amount using RupeesCalc free GST calculator", HOW_TO_STEPS)} />
       <CalculatorShell
         slug={slug}
         h1={meta.h1}
         faqs={FAQS}
         relatedSlugs={["income-tax-calculator", "emi-calculator", "fd-calculator"]}
         content={<GSTContent />}
+        howToSteps={HOW_TO_STEPS}
+        lastUpdated="May 2025"
       >
         <GSTCalculator />
       </CalculatorShell>

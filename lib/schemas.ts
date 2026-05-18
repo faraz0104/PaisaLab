@@ -5,21 +5,48 @@ export interface FAQ {
   answer: string;
 }
 
+export interface HowToStep {
+  name: string;
+  text: string;
+}
+
 export function webAppSchema(slug: string, name: string, description: string) {
   return {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": ["WebApplication", "SoftwareApplication"],
     name,
     description,
     url: `${SITE_URL}/${slug}/`,
     applicationCategory: "FinanceApplication",
     operatingSystem: "Any",
     offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
+    featureList: "Free, No signup required, Instant results, Mobile-friendly",
+    author: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
     provider: {
       "@type": "Organization",
       name: SITE_NAME,
       url: SITE_URL,
     },
+  };
+}
+
+export function howToSchema(name: string, description: string, steps: HowToStep[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name,
+    description,
+    tool: [{ "@type": "HowToTool", name: `${SITE_NAME} ${name}` }],
+    step: steps.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+    })),
   };
 }
 

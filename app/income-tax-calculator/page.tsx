@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { buildMetadata, CALC_META } from "@/lib/seo";
-import { webAppSchema, faqSchema, JsonLd } from "@/lib/schemas";
+import { webAppSchema, faqSchema, howToSchema, JsonLd } from "@/lib/schemas";
 import CalculatorShell from "@/components/calculator/CalculatorShell";
 import TaxCalculator from "@/components/tax/TaxCalculator";
 
@@ -72,17 +72,28 @@ const FAQS = [
   },
 ];
 
+const HOW_TO_STEPS = [
+  { name: "Select financial year and age group", text: "Choose FY 2025-26 (current year). Select your age group — General (under 60), Senior Citizen (60–79), or Super Senior (80+). Different slabs apply." },
+  { name: "Enter gross salary income", text: "Enter your annual gross salary (CTC minus employer PF and gratuity). Include any other income like interest, freelance, or rental income." },
+  { name: "Add deductions for old regime", text: "Under old regime, enter 80C investments (PPF, ELSS, LIC), HRA rent paid, home loan interest, 80D health insurance, and other deductions." },
+  { name: "Compare new vs old regime", text: "The calculator automatically computes tax under both regimes side by side. The lower tax regime is highlighted — switch to see the exact saving." },
+  { name: "Check effective tax rate", text: "View your effective tax rate (tax paid ÷ total income) — this helps compare your tax burden year over year and plan investments." },
+];
+
 export default function IncomeTaxPage() {
   return (
     <>
       <JsonLd data={webAppSchema(slug, "Income Tax Calculator", meta.description)} />
       <JsonLd data={faqSchema(FAQS)} />
+      <JsonLd data={howToSchema("Income Tax Calculator FY 2025-26", "How to calculate income tax for FY 2025-26 using RupeesCalc", HOW_TO_STEPS)} />
       <CalculatorShell
         slug={slug}
         h1={meta.h1}
         faqs={FAQS}
         relatedSlugs={["gst-calculator", "sip-calculator", "fd-calculator", "emi-calculator"]}
         content={<TaxContent />}
+        howToSteps={HOW_TO_STEPS}
+        lastUpdated="May 2025"
       >
         <TaxCalculator />
       </CalculatorShell>

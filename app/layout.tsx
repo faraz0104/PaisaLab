@@ -17,12 +17,15 @@ const inter = Inter({
   display: "swap",
 });
 
+const HOME_TITLE = "Finance Calculators India 2026 — SIP, EMI, Tax, GST, FD";
+const HOME_DESC = "22 free finance calculators for India. SIP, EMI, income tax, GST, FD, home loan, PPF, NPS, HRA, gratuity, salary. Instant results, live charts, FY 2025-26. No signup.";
+
 export const metadata: Metadata = {
   title: {
-    default: `${SITE_NAME_CONST} — Free Indian Finance Calculators`,
+    default: HOME_TITLE,
     template: `%s | ${SITE_NAME_CONST}`,
   },
-  description: SITE_DESCRIPTION_CONST,
+  description: HOME_DESC,
   metadataBase: new URL(SITE_URL_CONST),
   keywords: [
     "SIP calculator",
@@ -31,17 +34,30 @@ export const metadata: Metadata = {
     "GST calculator",
     "FD calculator",
     "home loan calculator",
+    "PPF calculator",
+    "NPS calculator",
+    "HRA calculator",
+    "gratuity calculator",
+    "salary calculator India",
     "mutual fund calculator India",
+    "finance calculators India 2026",
   ],
-  authors: [{ name: SITE_NAME_CONST }],
+  authors: [{ name: "RupeesCalc Editorial Team", url: `${SITE_URL_CONST}/about/` }],
   creator: SITE_NAME_CONST,
+  alternates: {
+    canonical: SITE_URL_CONST,
+    languages: {
+      "en-IN": SITE_URL_CONST,
+      "en": SITE_URL_CONST,
+    },
+  },
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: SITE_URL_CONST,
     siteName: SITE_NAME_CONST,
-    title: `${SITE_NAME_CONST} — Free Indian Finance Calculators`,
-    description: SITE_DESCRIPTION_CONST,
+    title: HOME_TITLE,
+    description: HOME_DESC,
     images: [
       {
         url: `${SITE_URL_CONST}/og/home.png`,
@@ -53,8 +69,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME_CONST} — Free Indian Finance Calculators`,
-    description: SITE_DESCRIPTION_CONST,
+    title: HOME_TITLE,
+    description: HOME_DESC,
     images: [`${SITE_URL_CONST}/og/home.png`],
   },
   robots: {

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 };
 
 const stats = [
-  { value: "12+", label: "Free Calculators" },
+  { value: "22+", label: "Free Calculators" },
   { value: "100%", label: "Free, No Signup" },
   { value: "0", label: "Hidden Charges" },
   { value: "₹0", label: "Cost to You" },
@@ -123,7 +123,7 @@ export default function AboutPage() {
         <section className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8">
           <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Our Calculators</h2>
           <p className="text-slate-500 dark:text-slate-400 mb-6">
-            12 calculators covering the full spectrum of personal finance decisions in India.
+            22 calculators covering the full spectrum of personal finance decisions in India.
           </p>
           <div className="grid sm:grid-cols-2 gap-2">
             {ALL_CALCULATORS.map((calc) => (
