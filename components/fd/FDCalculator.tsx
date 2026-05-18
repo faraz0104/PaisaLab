@@ -14,16 +14,19 @@ type Mode = "fd" | "rd";
 
 interface FDCalculatorProps {
   mode?: Mode;
+  initialPrincipal?: number;
+  initialRate?: number;
+  initialYears?: number;
 }
 
-export default function FDCalculator({ mode = "fd" }: FDCalculatorProps) {
+export default function FDCalculator({ mode = "fd", initialPrincipal, initialRate, initialYears }: FDCalculatorProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [principal, setPrincipal] = useState(() => Number(searchParams.get("principal")) || 100000);
-  const [rate, setRate] = useState(() => Number(searchParams.get("rate")) || 7.0);
-  const [years, setYears] = useState(() => Number(searchParams.get("years")) || 5);
+  const [principal, setPrincipal] = useState(() => (initialPrincipal ?? Number(searchParams.get("principal"))) || 100000);
+  const [rate, setRate] = useState(() => (initialRate ?? Number(searchParams.get("rate"))) || 7.0);
+  const [years, setYears] = useState(() => (initialYears ?? Number(searchParams.get("years"))) || 5);
   const [frequency, setFrequency] = useState<CompoundFrequency>("quarterly");
 
   useEffect(() => {

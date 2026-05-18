@@ -37,21 +37,24 @@ const PRINCIPAL_MAX: Record<LoanType, number> = {
 
 interface EMICalculatorProps {
   loanType?: LoanType;
+  initialPrincipal?: number;
+  initialRate?: number;
+  initialYears?: number;
 }
 
-export default function EMICalculator({ loanType = "general" }: EMICalculatorProps) {
+export default function EMICalculator({ loanType = "general", initialPrincipal, initialRate, initialYears }: EMICalculatorProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const [principal, setPrincipal] = useState(() =>
-    Number(searchParams.get("principal")) || PRINCIPAL_DEFAULTS[loanType]
+    (initialPrincipal ?? Number(searchParams.get("principal"))) || PRINCIPAL_DEFAULTS[loanType]
   );
   const [rate, setRate] = useState(() =>
-    Number(searchParams.get("rate")) || RATE_DEFAULTS[loanType]
+    (initialRate ?? Number(searchParams.get("rate"))) || RATE_DEFAULTS[loanType]
   );
   const [years, setYears] = useState(() =>
-    Number(searchParams.get("years")) || (loanType === "home" ? 20 : loanType === "personal" ? 3 : 7)
+    (initialYears ?? Number(searchParams.get("years"))) || (loanType === "home" ? 20 : loanType === "personal" ? 3 : 7)
   );
   const [prepayment, setPrepayment] = useState(0);
   const [activeTab, setActiveTab] = useState<"chart" | "table">("chart");

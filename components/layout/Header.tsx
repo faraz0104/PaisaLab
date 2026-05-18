@@ -64,6 +64,12 @@ export default function Header() {
           {/* Right side */}
           <div className="flex items-center gap-2">
             <Link
+              href="/learn/"
+              className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+            >
+              Learn
+            </Link>
+            <Link
               href="/"
               className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-500 text-white text-sm font-semibold hover:bg-emerald-600 transition-colors"
             >
@@ -123,7 +129,17 @@ export default function Header() {
               </div>
             </div>
           ))}
-          <div className="px-4 py-3 border-t border-slate-100 dark:border-slate-800 mt-1">
+          <div className="px-4 py-2 border-t border-slate-100 dark:border-slate-800 mt-1">
+            <Link
+              href="/learn/"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:text-emerald-700 transition-colors"
+            >
+              <span>📖</span>
+              <span>Learn — Finance Guides</span>
+            </Link>
+          </div>
+          <div className="px-4 py-3 border-t border-slate-100 dark:border-slate-800">
             <p className="text-xs text-center text-slate-400">rupeescalc.in</p>
           </div>
         </div>
